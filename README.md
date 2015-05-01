@@ -6,9 +6,7 @@
 <code>
 <?php
   $lol = new LolClass();
-
   print_r($lol->region('tr')->name('UndyingEye')->summoner_info()); // User Info (Summoner Name)
-
   print_r($lol->region('tr')->id('178866')->summoner_info()); // User Info (Summoner Id)
 ?>
 </code>
@@ -17,7 +15,6 @@
 <code>
 <?php
   $lol = new LolClass();
-  
   print_r($lol->region('tr')->id('178866')->current_game('TR1'));
 ?>
 </code>
@@ -26,9 +23,7 @@
 <code>
 <?php
   $lol = new LolClass();
-  
   print_r($lol->region('tr')->champion_info()); // Champion Info (ALL)
-  
   print_r($lol->region('tr')->champion_info('16')); // Champion Info (Champion Id)
 ?>
 </code>
