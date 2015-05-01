@@ -81,15 +81,6 @@ class LolClass {
     }
 
     /**
-     * @param $platform
-     * @return $this
-     */
-    public function platform($platform) {
-        $this->platform = $platform;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function avatar() {
@@ -222,9 +213,9 @@ class LolClass {
     /**
      * @return string
      */
-    public function current_game() {
+    public function current_game($platform = 'TR1') {
         $api_url = $this->static_url($this->region);
-        $json_url = file_get_contents($api_url . $this->current_game_url . $this->platform . '/' . $this->summoner_id . '?api_key=' . $this->api_key);
+        $json_url = file_get_contents($api_url . $this->current_game_url . $platform . '/' . $this->summoner_id . '?api_key=' . $this->api_key);
         return $json_url;
     }
 
