@@ -3,30 +3,20 @@
 <h2>How To Use The Class</h2>
 
 <h4>User Info</h4>
-<code>
-<?php
-  $lol = new LolClass();
-  print_r($lol->region('tr')->name('UndyingEye')->summoner_info()); // User Info (Summoner Name)
-  print_r($lol->region('tr')->id('178866')->summoner_info()); // User Info (Summoner Id)
-?>
+<code>$lol = new LolClass();</code>
+<code>print_r($lol->region('tr')->name('UndyingEye')->summoner_info()); // User Info (Summoner Name)</code>
+<code>print_r($lol->region('tr')->id('178866')->summoner_info()); // User Info (Summoner Id)</code>
+
 </code>
 
 <h4>Current Game</h4>
-<code>
-<?php
-  $lol = new LolClass();
-  print_r($lol->region('tr')->id('178866')->current_game('TR1'));
-?>
-</code>
+<code>$lol = new LolClass();</code>
+<code>print_r($lol->region('tr')->id('178866')->current_game('TR1'));</code>
 
 <h4>Champion</h4>
-<code>
-<?php
-  $lol = new LolClass();
-  print_r($lol->region('tr')->champion_info()); // Champion Info (ALL)
-  print_r($lol->region('tr')->champion_info('16')); // Champion Info (Champion Id)
-?>
-</code>
+<code>$lol = new LolClass();</code>
+<code>print_r($lol->region('tr')->champion_info()); // Champion Info (ALL)</code>
+<code>print_r($lol->region('tr')->champion_info('16')); // Champion Info (Champion Id)</code>
 
 <h2>Author Information</h2>
 <span>Author: Ahmet Işıtan Narlı</span>
