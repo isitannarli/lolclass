@@ -311,7 +311,11 @@ class LolClass {
     public function champion_info($id = null, $data = null) {
         $api_url = $this->global_url($this->region);
 
+<<<<<<< HEAD
+        if($id == !null) {
+=======
         if($id == !null)
+>>>>>>> parent of af06503... League of Legends Legal Api
             $json_url = file_get_contents($api_url . 'champion/' . $id . '?api_key=' . $this->api_key);
         else
             $json_url = file_get_contents($api_url . 'champion?champData=' . $data . '&api_key=' . $this->api_key);
@@ -327,7 +331,11 @@ class LolClass {
     public function item_info($id = null, $data = null) {
         $api_url = $this->global_url($this->region);
 
+<<<<<<< HEAD
+        if($id == !null) {
+=======
         if($id == !null)
+>>>>>>> parent of af06503... League of Legends Legal Api
             $json_url = file_get_contents($api_url . 'item/' . $id . '?api_key=' . $this->api_key);
         else
             $json_url = file_get_contents($api_url . 'item?itemListData=' . $data . '&api_key=' . $this->api_key);
@@ -343,7 +351,11 @@ class LolClass {
     public function mastery_info($id = null, $data = null) {
         $api_url = $this->global_url($this->region);
 
+<<<<<<< HEAD
+        if($id == !null) {
+=======
         if($id == !null)
+>>>>>>> parent of af06503... League of Legends Legal Api
             $json_url = file_get_contents($api_url . 'mastery/' . $id . '?api_key=' . $this->api_key);
         else
             $json_url = file_get_contents($api_url . 'mastery?masteryListData=' . $data . '&api_key=' . $this->api_key);
@@ -359,7 +371,11 @@ class LolClass {
     public function rune_info($id = null, $data = null) {
         $api_url = $this->global_url($this->region);
 
+<<<<<<< HEAD
+        if($id == !null) {
+=======
         if($id == !null)
+>>>>>>> parent of af06503... League of Legends Legal Api
             $json_url = file_get_contents($api_url . 'rune/' . $id . '?api_key=' . $this->api_key);
         else
             $json_url = file_get_contents($api_url . 'rune?runeListData=' . $data . '&api_key=' . $this->api_key);
@@ -375,7 +391,11 @@ class LolClass {
     public function spell_info($id = null, $data = null) {
         $api_url = $this->global_url($this->region);
 
+<<<<<<< HEAD
+        if($id == !null) {
+=======
         if($id == !null)
+>>>>>>> parent of af06503... League of Legends Legal Api
             $json_url = file_get_contents($api_url . 'summoner-spell/' . $id . '?api_key=' . $this->api_key);
         else
             $json_url = file_get_contents($api_url . 'summoner-spell?runeListData=' . $data . '&api_key=' . $this->api_key);
