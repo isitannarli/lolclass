@@ -5,37 +5,31 @@
 <h4>User Info</h4>
 <code>
 <?php
-
   $lol = new LolClass();
 
   print_r($lol->region('tr')->name('UndyingEye')->summoner_info()); // User Info (Summoner Name)
 
   print_r($lol->region('tr')->id('178866')->summoner_info()); // User Info (Summoner Id)
-  
 ?>
 </code>
 
 <h4>Current Game</h4>
 <code>
 <?php
-
   $lol = new LolClass();
   
   print_r($lol->region('tr')->id('178866')->current_game('TR1'));
-  
 ?>
 </code>
 
 <h4>Champion</h4>
 <code>
 <?php
-
   $lol = new LolClass();
   
   print_r($lol->region('tr')->champion_info()); // Champion Info (ALL)
   
   print_r($lol->region('tr')->champion_info('16')); // Champion Info (Champion Id)
-  
 ?>
 </code>
 
