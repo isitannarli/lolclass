@@ -25,6 +25,35 @@ class LolClass {
     private $api_key = 'API KEY';
 
     /**
+     * @param $url
+     * @param bool $args
+     * @return mixed|string
+     */
+    private function get_content($url, $args = false) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        if($args) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$args);
+        }
+        $content = curl_exec($ch);
+        $response = curl_getinfo( $ch );
+        curl_close ( $ch );
+
+        if ($response['http_code'] == 301 || $response['http_code'] == 302 || $response['http_code'] == 404) {
+            return '';
+        } else {
+            return $content;
+        }
+
+    }
+
+    /**
      * @param $region
      * @return string
      */
@@ -84,7 +113,7 @@ class LolClass {
      * @return string
      */
     public function avatar() {
-        return 'http://avatar.leagueoflegends.com/'.$this->region.'/'.$this->summoner_id.'.png';
+        return 'http://avatar.leagueoflegends.com/'.$this->region.'/'.$this->summoner_name.'.png';
     }
 
     /**
@@ -93,12 +122,10 @@ class LolClass {
     public function summoner_info() {
         if(isset($this->summoner_name)) {
             $api_url = $this->baseurl($this->region);
-            $json_url = file_get_contents($api_url . $this->summoner_stat_url . 'by-name/' . $this->summoner_name . '?api_key=' . $this->api_key);
-            return $json_url;
+            return $this->get_content($api_url . $this->summoner_stat_url . 'by-name/' . $this->summoner_name . '?api_key=' . $this->api_key);
         } else {
             $api_url = $this->baseurl($this->region);
-            $json_url = file_get_contents($api_url . $this->summoner_stat_url . $this->summoner_id . '?api_key=' . $this->api_key);
-            return $json_url;
+            return $this->get_content($api_url . $this->summoner_stat_url . $this->summoner_id . '?api_key=' . $this->api_key);
         }
     }
 
@@ -107,8 +134,7 @@ class LolClass {
      */
     public function summoner_masteries() {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->summoner_stat_url . $this->summoner_id . '/masteries/' . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->summoner_stat_url . $this->summoner_id . '/masteries/' . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -118,8 +144,7 @@ class LolClass {
      */
     public function summoner_runes($summoner_id, $region) {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->summoner_stat_url . $this->summoner_id . '/runes/' . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->summoner_stat_url . $this->summoner_id . '/runes/' . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -127,8 +152,7 @@ class LolClass {
      */
     public function team_info() {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->team_url . 'by-summoner/' . $this->summoner_id . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->team_url . 'by-summoner/' . $this->summoner_id . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -137,8 +161,7 @@ class LolClass {
      */
     public function team_member_info($team_id) {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->team_url . $team_id . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->team_url . $team_id . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -155,8 +178,7 @@ class LolClass {
         }
 
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->stats_url . $this->summoner_id . '/ranked?season=' . $season . '&api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->stats_url . $this->summoner_id . '/ranked?season=' . $season . '&api_key=' . $this->api_key);
     }
 
     /**
@@ -173,8 +195,7 @@ class LolClass {
         }
 
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->stats_url . $this->summoner_id . '/summary?season=' . $season . '&api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->stats_url . $this->summoner_id . '/summary?season=' . $season . '&api_key=' . $this->api_key);
     }
 
     /**
@@ -184,7 +205,7 @@ class LolClass {
     public function matchhistory($game_type = null) {
         $api_url = $this->baseurl($this->region);
         if($game_type == null) {
-            $json_url = file_get_contents($api_url . $this->match_history . $this->summoner_id . '?api_key=' . $this->api_key);
+            return $this->get_content($api_url . $this->match_history . $this->summoner_id . '?api_key=' . $this->api_key);
         } else {
 
             if($game_type == 'solo5') {
@@ -195,9 +216,8 @@ class LolClass {
                 $game_type == 'RANKED_TEAM_5x5';
             }
 
-            $json_url = file_get_contents($api_url . $this->match_history . $this->summoner_id . '?rankedQueues=' . $game_type . '&api_key=' . $this->api_key);
+            return $this->get_content($api_url . $this->match_history . $this->summoner_id . '?rankedQueues=' . $game_type . '&api_key=' . $this->api_key);
         }
-        return $json_url;
     }
 
     /**
@@ -206,17 +226,16 @@ class LolClass {
      */
     public function match_info($match_id) {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->match_url . $match_id . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->match_url . $match_id . '?api_key=' . $this->api_key);
     }
 
     /**
+     * @param string $platform
      * @return string
      */
     public function current_game($platform = 'TR1') {
         $api_url = $this->static_url($this->region);
-        $json_url = file_get_contents($api_url . $this->current_game_url . $platform . '/' . $this->summoner_id . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->current_game_url . $platform . '/' . $this->summoner_id . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -224,8 +243,7 @@ class LolClass {
      */
     public function featured_games() {
         $api_url = $this->static_url($this->region);
-        $json_url = file_get_contents($api_url . $this->featured_games_url . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->featured_games_url . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -233,8 +251,7 @@ class LolClass {
      */
     public function last_game() {
         $api_url = $this->baseurl($this->region);
-        $json_url = file_get_contents($api_url . $this->game_url . $this->summoner_id . '/recent' . '?api_key=' . $this->api_key);
-        return $json_url;
+        return $this->get_content($api_url . $this->game_url . $this->summoner_id . '/recent' . '?api_key=' . $this->api_key);
     }
 
     /**
@@ -244,11 +261,10 @@ class LolClass {
     public function league_info($me = true) {
         $api_url = $this->baseurl($this->region);
         if($me == true)
-            $json_url = file_get_contents($api_url . $this->league_url . 'by-summoner/' . $this->summoner_id . '/entry' . '?api_key=' . $this->api_key);
+            return $this->get_content($api_url . $this->league_url . 'by-summoner/' . $this->summoner_id . '/entry' . '?api_key=' . $this->api_key);
         else
-            $json_url = file_get_contents($api_url . $this->league_url . 'by-summoner/' . $this->summoner_id . '?api_key=' . $this->api_key);
+            return $this->get_content($api_url . $this->league_url . 'by-summoner/' . $this->summoner_id . '?api_key=' . $this->api_key);
 
-        return $json_url;
     }
 
     /**
