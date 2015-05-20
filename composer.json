@@ -1,7 +1,6 @@
 {
 	"name": "isitannarli/lolclass",
 	"description": "League of Legends Legal Api Class",
-	"type": "library",
 	"keywords": ["lol","riotgames","leagueoflegends"],
 	"homepage": "https://github.com/isitannarli/lolclass",
 	"license": "MIT",
