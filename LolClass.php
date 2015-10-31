@@ -23,6 +23,7 @@ class LolClass {
     private $featured_games_url = '/observer-mode/rest/featured';
     private $team_url = '/v2.4/team/';
     private $api_key = 'API KEY';
+	private $ddragon_avatar_url = 'http://ddragon.leagueoflegends.com/cdn/5.22.1/img/profileicon/';
 
     /**
      * @param $url
